@@ -3,12 +3,6 @@ import React from 'react';
 
 export const Login = ({setName, setPass}) => {
 
-    // const [credentials, setCredentials]= useState(
-    //     {
-    //         userName: '',
-    //         userPassword: ''
-    //     }
-    // )
     const handleLogin = (e) => {
         e.preventDefault();
         const userNameInput= e.target.querySelector('input[name="userName"]').value;

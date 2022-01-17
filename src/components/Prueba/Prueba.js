@@ -1,7 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { handleAuthorization } from '../../actions/authAction';
 
 export const Prueba = () => {
+
+    const initialState = {
+    password: '123',
+    nombre:'dani'
+  }
+  const dispatch = useDispatch();
+  dispatch(handleAuthorization(initialState.password,initialState.nombre))
+
 
     const password = useSelector(state => state.authorization.password)
     const name= useSelector(state => state.authorization.nombre)

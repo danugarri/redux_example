@@ -1,25 +1,24 @@
-import logo from './logo.svg';
+import { Provider,useDispatch } from 'react-redux'
+import { store } from './store/store';
 import './App.css';
+import { Prueba } from './components/Prueba/Prueba';
+import { handleAuthorization } from './actions/authAction';
 
-function App() {
+export const App = () => {
+
+  const initialState = {
+    password: '',
+    nombre:''
+  }
+  const dispatch = useDispatch();
+  dispatch(handleAuthorization(initialState.password,initialState.nombre))
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Provider store= {store} >
+        <Prueba />
+      </Provider>
     </div>
   );
 }
 
-export default App;

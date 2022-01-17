@@ -31,36 +31,35 @@ necesitamos tener la librería de redux en el proyecto
 # creamos una carpeta que se llame reducers
 
 1. 2 creamos un fichero para manejar el store
-por ejemplo con  un estado relacionado con laautenticación
+por ejemplo con  un estado relacionado con la autenticación
 
 ej creamos 
-AuthReducer.js
+authReducer.js
 
 1. 3 Montamos la estructura de nuestro reducer
 # Esta es la estructura que debe de tener todo reducer
 
-export const AuthReducer = (state = {}, action) => {
+export const authReducer = (state = {}, action) => {
 }
 
 
-1. 4 hacemos un switch
+1. 4  Dentro del reducer hacemos un switch
 
 // aquí gestionamos los tipos de acción
 
 
 switch(action.type) {
-case types.login :
-return {
-login:action.payload.login,
-password: action.payload.password
-};
+    case types.login:
+        return {
+            login:action.payload.login,
+            password: action.payload.password
+        };
 
-case types.logout
-return {};
+    case types.logout:
+        return {};
 
-default:
- return state
-break;
+    default:
+        return state
 }
 
 // este switch debe ir dentro del AuthReducer.js
@@ -74,8 +73,8 @@ break;
 1. 5 creamos fichero types.js
 
 export const types = {
-login: '[Auth] login',
-logout: '[Auth] logout'
+    login: '[Auth] login',
+    logout: '[Auth] logout'
 }
 
 //dentro de types iremos añadiendo los que sean necesarios
@@ -110,10 +109,11 @@ export const store = createStore();
 import {createStore,combineReducers} from 'redux';
 
 const reducers = combineReducers(
-{
-auth: AuthReducer
-}
+    {
+        auth: AuthReducer
+    }
 );
+## junto a auth podremos crear tantas propiedades como queramos. Esas propiedades tendrán como valor los reducers que creemos
 
 2. 3 Ahora le pasamos esta variable como parámetro a createStore()
 
@@ -126,9 +126,9 @@ import {CreateStore} from 'react-redux';
 
 
 const reducers = combineReducers(
-{
-auth: AuthReducer
-}
+    {
+        auth: AuthReducer
+    }
 );
 export const store = CreateStore(reducers);
 
@@ -183,9 +183,21 @@ en auth.js
 
 import {types} from '..'
 
+# para cada acción necesitaremos una función que se llamará luego con useDispatch()
+
+### estas funciones realizan acciones que van a tener siempre 2 propiedades type y payload
+// ej actionLogin = {
+        type: types.login,
+        payload: {
+            login,
+            password
+        }
+}
+
 
 export const login = (login,password) => {
     return (
+        // el objeto de dentro es nuestra acción
         {
         type: types.login,
         payload: {
@@ -198,9 +210,10 @@ export const login = (login,password) => {
 
 4. Usar dispatch();
 
-En el fichero donde usemos el Provider
+# En el fichero donde usemos el Provider
 
 import {useDispatch} from 'react-redux';
+
 //estado inicial
 4. 1.bis Creamos un estado inicial
 const initForm = {
